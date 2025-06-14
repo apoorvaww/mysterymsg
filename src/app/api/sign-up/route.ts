@@ -3,7 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User.model";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-import { Lekton } from "next/font/google";
+
 
 export async function POST(request: Request) {
   await dbConnect();
@@ -45,6 +45,7 @@ export async function POST(request: Request) {
             existingUserByEmail.password = hashedPassword;
             existingUserByEmail.verifyCode = verificationCode;
             existingUserByEmail.verifyCodeExpiry = new Date(Date.now() + 3600)
+            existingUserByEmail.fullName = fullName;
 
             await existingUserByEmail.save();
         }
@@ -74,6 +75,8 @@ export async function POST(request: Request) {
       username,
       verificationCode
     );
+
+    console.log("email response", emailResponse)
 
     if (!emailResponse.success) {
       return Response.json(

@@ -8,12 +8,7 @@ const UsernameQuerySchema = z.object({
 });
 
 export async function GET(request: Request) {
-    // if(request.method !== 'GET'){
-    //     return Response.json({
-    //         success: false,
-    //         message: "Method not allowed"
-    //     }, {status: 405})
-    // }
+
 
   await dbConnect();
   // localhost:3000/api/cuu?username=apoorva
@@ -23,9 +18,11 @@ export async function GET(request: Request) {
     // new URL() creates a full URL object from the request's url
     // search params is a built-in object which helps you access query paramteres easily.
     /// and then searchParams.get("username") extracts value of username from the url.
+    console.log("search params: ", searchParams)
     const queryParam = {
         username: searchParams.get('username')
     }
+    console.log("query params: ", queryParam)
 
     /// validating username with zod:
     /// in the documentation it is written quite clearly that safe parse will validate the parameter you have provided with respect to the schena you have written

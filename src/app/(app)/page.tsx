@@ -52,8 +52,6 @@ export default function Home() {
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        {/* Navigation buttons placed **below** the carousel */}
         <div className="flex justify-center items-center gap-4 mt-4">
           <CarouselPrevious className="bg-black text-white rounded-full p-2 shadow hover:bg-gray-700 transition" />
           <CarouselNext className="bg-black text-white rounded-full p-2 shadow hover:bg-gray-700 transition" />

@@ -32,7 +32,7 @@ export default function RootLayout({
         >
 
           {children}
-          <Toaster richColors expand={true} position="top-right" />
+          <Toaster expand={true} position="top-right" />
         </body>
       </AuthProvider>
     </html>

@@ -97,99 +97,102 @@ const Dashboard = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(profileUrl);
-    toast.success("URL copied to clipboard");
+    toast("URL copied to clipboard");
   };
 
-  if (!session?.user)
+  if (!session?.user) {
     return (
       <div className="text-center py-20 text-lg font-semibold">
         Please login to continue.
       </div>
     );
+  }
 
   return (
-    
-      <div className="p-6 bg-white shadow-md rounded-lg w-full">
-        <h1 className="text-4xl font-bold mb-6">Anonymous messages</h1>
-        <p className="text-lg">
-          Send messages/feedbacks honestly with your identity hidden. Copy the
-          link to my profile below:
-        </p>
+    <div className="w-full px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 py-10">
+      <h1 className="text-3xl sm:text-4xl font-extrabold mb-3 text-center text-gray-800">
+        Anonymous Messages
+      </h1>
+      <p className="text-base sm:text-lg text-center text-gray-600 mb-8">
+        Send feedback honestly without revealing your identity. Copy your unique
+        profile link below:
+      </p>
 
-        <div className="mb-6 mt-6">
-          <h2 className="text-lg font-semibold mb-2">
-            Your Unique Message Link
-          </h2>
-          <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
-            <input
-              type="text"
-              value={profileUrl}
-              disabled
-              className="w-full border border-gray-300 p-2 rounded-md bg-gray-100 text-sm"
-            />
-            <Button onClick={copyToClipboard} className="w-full md:w-auto">
-              Copy
-            </Button>
-          </div>
-        </div>
-
-        <div className="mb-6 flex items-center gap-4">
-          <Switch
-            {...register("acceptingMessages")}
-            checked={acceptMessages}
-            onCheckedChange={handleSwitchChange}
-            disabled={isSwitchLoading}
+      <div className="mb-10">
+        <h2 className="text-md sm:text-lg font-semibold mb-2 text-gray-700 text-center">
+          Your Unique Message Link
+        </h2>
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 justify-center">
+          <input
+            type="text"
+            value={profileUrl}
+            disabled
+            className="w-full md:w-[70%] border border-gray-300 p-3 rounded-lg bg-gray-100 text-sm shadow-inner"
           />
-          <span className="text-sm font-medium">
-            Accept Messages:{" "}
-            <span
-              className={acceptMessages ? "text-green-600" : "text-red-600"}
-            >
-              {acceptMessages ? "On" : "Off"}
-            </span>
-          </span>
-        </div>
-
-        <div className="mb-6">
-          <Button
-            variant="outline"
-            onClick={(e) => {
-              e.preventDefault();
-              fetchMessages(true);
-            }}
-          >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-
-            ) : (
-              <RefreshCcw className="h-4 w-4" />
-            )}
-            <span className="ml-2">Refresh</span>
+          <Button onClick={copyToClipboard} className="w-full md:w-auto">
+            Copy
           </Button>
-        </div>
-
-        <Separator className="my-6" />
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {isLoading? (
-            Array.from({length: 5}).map((_,index) => (
-              <Skeleton key={index} className="h-36 w-full rounded-xl" />
-            ))
-          ) : 
-          messages.length > 0 ? (
-            messages.map((message) => (
-              <MessageCards
-                key={message._id as string}
-                message={message}
-                onMessageDelete={handleDeleteMessage}
-              />
-            ))
-          ) : (
-            <p className="text-gray-500">No messages to display.</p>
-          )}
         </div>
       </div>
 
+      <div className="mb-10 flex items-center justify-center gap-4">
+        <Switch
+          {...register("acceptingMessages")}
+          checked={acceptMessages}
+          onCheckedChange={handleSwitchChange}
+          disabled={isSwitchLoading}
+        />
+        <span className="text-sm font-medium text-gray-700">
+          Accept Messages:{" "}
+          <span className={acceptMessages ? "text-green-600" : "text-red-600"}>
+            {acceptMessages ? "On" : "Off"}
+          </span>
+        </span>
+      </div>
+
+      <div className="mb-8 flex justify-center">
+        <Button
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            fetchMessages(true);
+          }}
+          className="flex items-center gap-2 px-5 py-2"
+        >
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <RefreshCcw className="h-4 w-4" />
+          )}
+          <span>Refresh</span>
+        </Button>
+      </div>
+
+      <Separator className="my-8" />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+        {isLoading ? (
+          Array.from({ length: 8 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className="h-36 w-full rounded-xl bg-gray-200"
+            />
+          ))
+        ) : messages.length > 0 ? (
+          messages.map((message) => (
+            <MessageCards
+              key={message._id as string}
+              message={message}
+              onMessageDelete={handleDeleteMessage}
+            />
+          ))
+        ) : (
+          <p className="text-gray-500 col-span-full text-center text-lg font-medium">
+            No messages to display.
+          </p>
+        )}
+      </div>
+    </div>
   );
 };
 

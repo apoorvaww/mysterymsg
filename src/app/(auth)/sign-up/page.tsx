@@ -25,7 +25,6 @@ import { Loader2 } from "lucide-react";
 function SignUp() {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
-  // const [fullName, setFullName] = useState("");
   const [isCheckingUsername, setisCheckingUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,6 +33,7 @@ function SignUp() {
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
+    mode: "onChange",
     defaultValues: {
       username: "",
       email: "",
@@ -47,18 +47,15 @@ function SignUp() {
       if (username) {
         setisCheckingUsername(true);
         setUsernameMessage("");
-
         try {
           const res = await axios.get<ApiResponse>(
             `/api/check-username-unique?username=${username}`
           );
-          console.log("check username unique response :", res.data);
           setUsernameMessage(res.data.message);
         } catch (error) {
           const axiosError = error as AxiosError<ApiResponse>;
-          console.error("error in checking username: ", axiosError);
           setUsernameMessage(
-            axiosError.response?.data.message || "error in checking username"
+            axiosError.response?.data.message || "Error checking username"
           );
         } finally {
           setisCheckingUsername(false);
@@ -70,37 +67,35 @@ function SignUp() {
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true);
-    console.log(data);
     try {
       const res = await axios.post<ApiResponse>(`/api/sign-up`, data);
-      console.log("response from sign-up api: ", res.data);
       toast.success(res.data.message);
       router.replace(`/verify/${username}`);
-      setIsSubmitting(false);
     } catch (error) {
-      console.log("error while signing up user:", error);
       const axiosError = error as AxiosError<ApiResponse>;
       toast.error(
-        axiosError.response?.data.message || "Error in signing up user."
+        axiosError.response?.data.message || "Error signing up user."
       );
+    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 px-4">
-      <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl bg-white dark:bg-zinc-900 dark:text-white space-y-6">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-white to-gray-100 px-4">
+      <div className="w-full max-w-md p-8 rounded-2xl border border-gray-200 shadow-xl bg-white space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2">
-            Join <span className="text-blue-600">Mysterymsg</span>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-2 text-gray-900">
+            Join <span className="text-black underline">Mysterymsg</span>
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-500">
             Sign up to start your anonymous adventure
           </p>
         </div>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            {/* Username Field */}
             <FormField
               control={form.control}
               name="username"
@@ -109,7 +104,7 @@ function SignUp() {
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="username"
+                      placeholder="yourname123"
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
@@ -117,10 +112,16 @@ function SignUp() {
                       }}
                     />
                   </FormControl>
-                  {isCheckingUsername && <Loader2 className="animate-spin" />}
+                  {isCheckingUsername && (
+                    <Loader2 className="h-4 w-4 text-gray-500 animate-spin mt-1" />
+                  )}
                   {!isCheckingUsername && usernameMessage && (
                     <p
-                      className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}
+                      className={`text-sm mt-1 ${
+                        usernameMessage === "Username is unique"
+                          ? "text-green-600"
+                          : "text-red-500"
+                      }`}
                     >
                       {usernameMessage}
                     </p>
@@ -130,6 +131,7 @@ function SignUp() {
               )}
             />
 
+            {/* Full Name */}
             <FormField
               control={form.control}
               name="fullName"
@@ -137,12 +139,14 @@ function SignUp() {
                 <FormItem>
                   <FormLabel>Full Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Full Name" {...field} />
+                    <Input placeholder="John Doe" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* Email */}
             <FormField
               control={form.control}
               name="email"
@@ -150,16 +154,14 @@ function SignUp() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      type="email"
-                      placeholder="you@example.com"
-                      {...field}
-                    />
+                    <Input type="email" placeholder="you@example.com" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
+            {/* Password */}
             <FormField
               control={form.control}
               name="password"
@@ -169,11 +171,17 @@ function SignUp() {
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            {/* Submit */}
+            <Button
+              type="submit"
+              className="w-full bg-black text-white hover:bg-gray-900"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -186,9 +194,9 @@ function SignUp() {
           </form>
         </Form>
 
-        <p className="text-center text-sm mt-4">
-          Already joined?{" "}
-          <Link href="/sign-in" className="text-blue-600 hover:underline">
+        <p className="text-center text-sm mt-4 text-gray-500">
+          Already have an account?{" "}
+          <Link href="/sign-in" className="text-black underline hover:text-gray-700">
             Sign In
           </Link>
         </p>

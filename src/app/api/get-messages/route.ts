@@ -21,6 +21,8 @@ export async function GET(request: Request) {
     );
   }
 
+  console.log(session.user);
+
   // to implement the mongoose aggregation pipeline we need to convert the user._id to Object id.
   // what will unwind do? if a single user has, say, 3 messages stored in an array, then unwind will take that message array and unwind it into 3 objects with same userid but 3 different messages.
   const userId = new mongoose.Types.ObjectId(user._id);
@@ -28,7 +30,7 @@ export async function GET(request: Request) {
     const user = await UserModel.aggregate([
       {
         $match: {
-          id: userId,
+          _id: userId,
         },
       },
       { $unwind: "$messages" },
@@ -44,8 +46,9 @@ export async function GET(request: Request) {
         },
       },
     ]);
+    console.log("user get-messages api:", user[0].messages);
 
-    if (!user || user.length === 0) {
+    if (!user) {
       return Response.json(
         {
           success: false,
@@ -55,10 +58,21 @@ export async function GET(request: Request) {
       );
     }
 
+    if (user.length == 0) {
+      return Response.json(
+        {
+          success: true,
+          message: "No messages to show here yet.",
+        },
+        { status: 200 }
+      );
+    }
+
     return Response.json(
       {
         success: true,
-        message: user[0].messages,
+        message: "Data fetched successfully",
+        messages: user[0].messages,
       },
       { status: 200 }
     );
@@ -67,7 +81,7 @@ export async function GET(request: Request) {
     return Response.json(
       {
         success: false,
-        message: "Couldn't receive messages"
+        message: "Couldn't receive messages",
       },
       { status: 500 }
     );

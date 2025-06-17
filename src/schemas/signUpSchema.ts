@@ -8,7 +8,7 @@ export const usernameValidation = z
 
 export const fullNameValidation = z
   .string()
-  .min(4, "Full Name must be atleast 6 characters long.")
+  .min(4, "Full Name must be atleast 4 characters long.")
   .max(30, "Fullname can't be longer than 30 characters")
   .regex(/^[a-zA-X0-9_]+$/, "Full name must not contain special characters");
 
@@ -17,5 +17,5 @@ export const signUpSchema = z.object({
   username: usernameValidation,
   email: z.string().email({ message: "Invalid email address" }),
   fullName: fullNameValidation,
-  password: z.string().min(8, {message: "Password must be atleast 8 character"})
+  password: z.string().min(8, {message: "Password must be atleast 8 characters"})
 });

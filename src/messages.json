@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Message from User123",
+    "content": "Hey, how are you doing today?",
+    "received": "10 minutes ago"
+  },
+  {
+    "title": "Message from SecretAdmirer",
+    "content": "I really liked your recent post!",
+    "received": "2 hours ago"
+  },
+  {
+    "title": "Message from MysteryGuest",
+    "content": "Do you have any book recommendations?",
+    "received": "1 day ago"
+  },
+
+  {
+    "title": "Great Product!",
+    "content": "This is an amazing product, I highly recommend it to everyone."
+  },
+  {
+    "title": "Anonymous Feedback",
+    "content": "It's refreshing to give honest feedback without revealing my identity."
+  },
+  {
+    "title": "Easy to Use",
+    "content": "The platform is incredibly intuitive and user-friendly."
+  },
+  {
+    "title": "Valuable Insights",
+    "content": "I received very helpful and constructive feedback."
+  },
+  {
+    "title": "Secure and Private",
+    "content": "I feel completely secure sharing my thoughts here."
+  }
+]

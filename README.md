@@ -19,26 +19,44 @@ Here's a overview of features:
 - UI components: shadcn (ui.shadcn.com)
 
 
+
 📸 **SCREENSHOTS**
 
+
 1.) ***Landing Page***
+
+
 ![Screenshot 2025-06-19 170417](https://github.com/user-attachments/assets/b2841628-0af4-4035-b734-b42c138f7b4e)
 
 
+
 2.) ***Sign up and Sign in page***
+
+
 ![Screenshot 2025-06-19 170509](https://github.com/user-attachments/assets/4312fb13-9365-451c-90f2-e6db8b65d943)
+
+
 ![Screenshot 2025-06-19 170522](https://github.com/user-attachments/assets/226bc7be-2be8-4ada-ae93-9333461b18aa)
 
 
 3.) ***User Dashboard***
+
+
 ![Screenshot 2025-06-19 170720](https://github.com/user-attachments/assets/70381f52-20bb-4400-9e37-d90b8a0599ef)
+
+
 ![Screenshot 2025-06-19 170713](https://github.com/user-attachments/assets/701ec655-0605-4680-9f81-0cbe02cf60bc)
 
 
 4.) ***User's unique profile link***
+
+
 ![Screenshot 2025-06-19 170829](https://github.com/user-attachments/assets/a6c4a346-ccdf-4b21-8e92-98340d4871ba)
 
+
 **an example of ai-generated messages**
+
+
 ![Screenshot 2025-06-19 170842](https://github.com/user-attachments/assets/1cd0b1e7-6d64-4a02-9ea3-f0675002f2ee)
 
 

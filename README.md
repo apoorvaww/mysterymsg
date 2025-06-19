@@ -9,6 +9,10 @@
 </p>
 
 
+![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
+![Auth.js](https://img.shields.io/badge/Auth.js-2E3440?logo=vercel&logoColor=white)
+
 ***FEATURES:***
 Here's a overview of features:
 - Send and receive anonymous messages

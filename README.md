@@ -42,10 +42,13 @@ Here's a overview of features:
 3.) ***User Dashboard***
 
 
+
+![Screenshot 2025-06-19 170713](https://github.com/user-attachments/assets/701ec655-0605-4680-9f81-0cbe02cf60bc)
+
+
 ![Screenshot 2025-06-19 170720](https://github.com/user-attachments/assets/70381f52-20bb-4400-9e37-d90b8a0599ef)
 
 
-![Screenshot 2025-06-19 170713](https://github.com/user-attachments/assets/701ec655-0605-4680-9f81-0cbe02cf60bc)
 
 
 4.) ***User's unique profile link***

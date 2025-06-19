@@ -10,14 +10,19 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import messages from "@/messages.json";
+import { FlipWords } from "@/components/ui/flip-words";
 
 export default function Home() {
+  const words = ["anonymous","hidden"]
   return (
     <main className="flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 text-gray-900 min-h-screen bg-white">
       <section className="text-center mb-8 md:mb-12">
         <h1 className="text-3xl md:text-5xl font-extrabold text-black leading-tight">
           Get started with{" "}
-          <span className="text-black underline">anonymous feedback</span>
+          <span className="text-black underline">
+            <FlipWords words={words} /> <br />
+            </span>
+feedback
         </h1>
         <p className="mt-3 md:mt-4 text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
           True Feedback – Where your identity remains a secret, fostering honest

@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { Button } from "./ui/button";
-
+import Skeleton from 'react-loading-skeleton'
 const Navbar = () => {
   const { data: session } = useSession();
   const user: User = session?.user as User;
+
 
   return (
     <nav className="bg-white shadow-sm px-4 py-4 md:px-8 md:py-5 border-b">
@@ -38,7 +39,8 @@ const Navbar = () => {
             </>
           ) : (
             <Link href="/sign-in">
-              <Button className="w-full md:w-auto">Login</Button>
+              <Button className="w-full md:w-auto" >Login</Button>
+
             </Link>
           )}
         </div>

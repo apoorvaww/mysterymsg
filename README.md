@@ -1,4 +1,12 @@
+
 ***Mysterymsg*** is a full stack application built with [Next.js](https://nextjs.org) and TypeScript. Mysterymsg allows users to create their profile which then creates their unique profile link which users can copy to send anonymous messages. The identity of people sending messages is kept entirely hidden. Another feature is **AI Integration with Gemini**. Mystermysg includes ai-generated messages with the help of google-2.0-flash model. Throughout the whole project I have used shadcn for sleek UI.
+
+
+<p align="center">
+  <img src="https://nextjs.org/static/favicon/favicon.ico" alt="Next.js Logo" width="40"/>
+  &nbsp;&nbsp;
+  <img src="https://authjs.dev/img/logo/logo-sm.svg" alt="Auth.js Logo" width="40"/>
+</p>
 
 
 ***FEATURES:***

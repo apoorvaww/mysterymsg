@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-function page() {
+function Page() {
   const router = useRouter();
   const params = useParams<{ username: string }>();
   const form = useForm<z.infer<typeof verifySchema>>({
@@ -76,4 +76,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

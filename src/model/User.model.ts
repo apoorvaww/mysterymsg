@@ -2,7 +2,7 @@ import { Schema, Document } from "mongoose";
 import mongoose from "mongoose";
 
 export interface Message extends Document {
-  content: String;
+  content: string;
   createdAt: Date;
 }
 

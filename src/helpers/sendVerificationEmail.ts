@@ -1,7 +1,6 @@
 import { resend } from "@/lib/resend";
 import VerificationEmail from "../../emails/VerificationEmail";
 import { ApiResponse } from "@/types/ApiResponse";
-import { ApiError } from "next/dist/server/api-utils";
 
 export async function sendVerificationEmail(
   email: string,

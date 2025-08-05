@@ -2,7 +2,6 @@
 import React from "react";
 import {
   Card,
-  CardFooter,
   CardHeader,
   CardTitle,
   CardContent

@@ -23,7 +23,6 @@ import { Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator"; // fixed: use correct separator
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const specialChar = "||";
 
@@ -50,8 +49,6 @@ const SendMessagesToUsername = () => {
   const router = useRouter();
 
   const {
-    complete,
-    completion,
     isLoading: isSuggestLoading,
     error,
   } = useCompletion({
@@ -72,6 +69,7 @@ const SendMessagesToUsername = () => {
         username,
         content: data.content,
       });
+      console.log(res.data)
       toast.success("Message sent successfully");
       router.replace(`/dashboard`);
     } catch (error) {
@@ -97,6 +95,7 @@ const SendMessagesToUsername = () => {
       setSuggestedMessages(data.messages);
     } catch (error) {
       toast.error("Couldn't generate message suggestions.");
+      console.log(error)
     } finally {
       setIsLoading(false);
     }

@@ -32,7 +32,9 @@ const Dashboard = () => {
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
     try {
-      const res = await axios.get<ApiResponse>(`/api/accept-messages`);
+      const res = await axios.get<ApiResponse>(`/api/accept-messages`, {
+        withCredentials: true
+      });
       setValue("acceptingMessages", res.data.isAcceptingMessages as boolean);
     } catch (err) {
       const e = err as AxiosError<ApiResponse>;
@@ -42,24 +44,21 @@ const Dashboard = () => {
     }
   }, [setValue]);
 
-  const fetchMessages = useCallback(
-    async (refresh = false) => {
-      setIsLoading(true);
-      try {
-        const res = await axios.get<ApiResponse & { messages: Message[] }>(
-          "/api/get-messages"
-        );
-        setMessages(res.data.messages || []);
-        if (refresh) toast.message("Refreshed messages.");
-      } catch (err) {
-        const e = err as AxiosError<ApiResponse>;
-        toast.error(e.response?.data.message || "Failed to fetch messages.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    []
-  );
+  const fetchMessages = useCallback(async (refresh = false) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get<ApiResponse & { messages: Message[] }>(
+        "/api/get-messages"
+      );
+      setMessages(res.data.messages || []);
+      if (refresh) toast.message("Refreshed messages.");
+    } catch (err) {
+      const e = err as AxiosError<ApiResponse>;
+      toast.error(e.response?.data.message || "Failed to fetch messages.");
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined" && session?.user?.username) {
@@ -76,9 +75,13 @@ const Dashboard = () => {
 
   const handleSwitchChange = async () => {
     try {
-      const res = await axios.post<ApiResponse>("/api/accept-messages", {
-        acceptingMessages: !acceptMessages,
-      });
+      const res = await axios.post<ApiResponse>(
+        "/api/accept-messages",
+        {
+          acceptingMessages: !acceptMessages,
+        },
+        { withCredentials: true }
+      );
       setValue("acceptingMessages", !acceptMessages);
       toast.success(res.data.message);
     } catch (err) {

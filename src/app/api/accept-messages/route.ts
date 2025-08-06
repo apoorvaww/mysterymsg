@@ -9,6 +9,7 @@ export async function POST(request:Request) {
 
   const session = await getServerSession(authOptions);
   const user: User = session?.user as User;
+  console.log("session", session);
 
   if (!session || !session.user) {
     return Response.json(
@@ -21,6 +22,7 @@ export async function POST(request:Request) {
   }
 
   const userId = user._id;
+  console.log("userid", userId);
   const { acceptingMessages } = await request.json();
 
   try {

@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
           if (isPasswordCorrect) {
             return {
               id: user._id.toString(),
+              _id: user._id.toString(),
               username: user.username,
               email: user.email,
               isVerified: user.isVerified,

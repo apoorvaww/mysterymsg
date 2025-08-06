@@ -3,9 +3,15 @@ import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../../api/auth/[...nextauth]/options";
 
+interface RouteContext {
+  params:{
+    messageId: string
+  }
+}
+
 export async function DELETE(
   request: Request,
-  { params }: { params: { messageId: string } }
+  context: RouteContext,
 ) {
   await dbConnect();
   const session = await getServerSession(authOptions);
@@ -22,7 +28,7 @@ export async function DELETE(
   }
 
   // get the message id from the params:
-  const messageId = params.messageId;
+  const messageId = context.params.messageId;
 
   try {
     const updatedResult = await UserModel.updateOne(

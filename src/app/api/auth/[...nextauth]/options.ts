@@ -1,4 +1,4 @@
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, User as NextAuthUser } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
         identifier: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials: authorizeCredentials | undefined): Promise<any> {
+      async authorize(credentials: authorizeCredentials | undefined): Promise<NextAuthUser | null> {
         await dbConnect();
         try {
           console.log("credentials: ", credentials?.identifier )
@@ -43,7 +43,14 @@ export const authOptions: NextAuthOptions = {
             user.password
           );
           if (isPasswordCorrect) {
-            return user;
+            return {
+              id: user._id.toString(),
+              username: user.username,
+              email: user.email,
+              isVerified: user.isVerified,
+              isAcceptingMessages: user.isAcceptingMessages,
+              fullName: user.fullName,
+            }
           } else {
             throw new Error('Incorrect password');
           }

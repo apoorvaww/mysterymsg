@@ -19,9 +19,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import LoadingPage from "@/components/LoadingPage";
 
 const SignIn = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const[showRedirectLoading, setShowRedirectLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -48,10 +50,18 @@ const SignIn = () => {
         toast.error(`Error occurred while logging in: ${result.error}`);
       }
     } else if (result?.url) {
-      router.replace(`/dashboard`);
+      setShowRedirectLoading(true);
+      setTimeout(() => {
+        router.replace(`/dashboard`);
+      }, 500);
+      
     }
-    setIsSubmitting(false);
+    // setIsSubmitting(false);
   };
+
+  if(showRedirectLoading) {
+    <LoadingPage/>
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-white to-gray-100 px-4">
@@ -105,8 +115,8 @@ const SignIn = () => {
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                  Please wait
                 </>
               ) : (
                 "Sign In"

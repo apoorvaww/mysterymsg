@@ -4,18 +4,28 @@ import bcrypt from 'bcryptjs';
 import dbConnect from '@/lib/dbConnect';
 import UserModel from '@/model/User.model';
 
+interface authorizeCredentials {
+  identifier?:string;
+  password: string;
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       id: 'credentials',
       name: 'Credentials',
       credentials: {
-        email: { label: 'Email', type: 'text' },
+        identifier: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials: any): Promise<any> {
+      async authorize(credentials: authorizeCredentials | undefined): Promise<any> {
         await dbConnect();
         try {
+          console.log("credentials: ", credentials?.identifier )
+          console.log(credentials?.password)
+          if (!credentials?.identifier || !credentials.password) {
+            throw new Error("Please provide email and password.")
+          }
           const user = await UserModel.findOne({
             $or: [
               { email: credentials.identifier },

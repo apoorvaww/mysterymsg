@@ -1,4 +1,3 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -32,14 +31,14 @@ export async function POST() {
       message: "Suggested messages generated successfully",
       messages: output,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("error in sending messages", error);
 
     return Response.json(
       {
         success: false,
         message: "Failed to generate messages",
-        error: error?.message || "Unknown error",
+        error: "Failed to generate messages",
       },
       {
         status: 500,

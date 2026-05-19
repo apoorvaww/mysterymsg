@@ -98,7 +98,7 @@ export default function Home() {
                     
                     <CardContent className="flex-1 flex flex-col justify-between px-5 pb-5">
                       <p className="text-sm font-medium leading-relaxed text-slate-600 break-words">
-                        "{message.content}"
+                        &ldquo;{message.content}&rdquo;
                       </p>
                       
                       {/* Metadata bottom row to sync visual continuity with the app preview */}

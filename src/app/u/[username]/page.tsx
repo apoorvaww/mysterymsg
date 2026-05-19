@@ -53,7 +53,7 @@ const SendMessagesToUsername = () => {
   const [suggestedMessages, setSuggestedMessages] =
     useState<string>(initialMessageString);
 
-  const router = useRouter();
+  // const router = useRouter();
 
   const {
     isLoading: isSuggestLoading,
